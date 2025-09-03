@@ -27,7 +27,14 @@ jobs:
         with:
           path: pandoc
           key: pandoc-3.7.0.2-${{ runner.os }}
-          
+      
+      - name: Restore export-cache
+        id: restore-export-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: export-cache
+          key: export-cache-latest
+
       - name: Download pandoc
         if: steps.cache-pandoc.outputs.cache-hit != 'true'
         run: |
@@ -69,6 +76,12 @@ jobs:
         run: node ./index.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Save updated cache (always)
+        uses: actions/cache/save@v4
+        with:
+          path: export-cache
+          key: export-cache-latest
 
       # run build script
       - name: Build VuePress site
