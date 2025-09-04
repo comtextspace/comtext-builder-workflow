@@ -79,6 +79,7 @@ jobs:
 
       - name: Delete 'export-cache-latest' cache
         uses: DareFox/delete-cache-by-key@v1
+        continue-on-error: true
         with:
           key: export-cache-latest
           attempts: 3
