@@ -77,6 +77,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: actions/checkout@v4
+      - name: Purge GitHub Actions Cache
+        uses: luxass/purge-action-cache@v0.1.0
+        with:
+          max-age: 10 # 7 days in seconds
+          filter-key: export-cache-latest # or created_at
+          debug: true # optional, set to true for debug output
+
       - name: Save updated cache (always)
         uses: actions/cache/save@v4
         with:
