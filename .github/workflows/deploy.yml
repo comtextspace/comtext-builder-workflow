@@ -73,7 +73,7 @@ jobs:
 
       - name: Build pages
         working-directory: builder
-        run: node ./index.js './..' './' './../export-cache'
+        run: node ./index.js './..' './' './../export-cache' '${{ github.sha }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
